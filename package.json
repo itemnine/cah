@@ -1,0 +1,51 @@
+{
+  "name": "@ttn/cah",
+  "version": "0.1.0",
+  "description": "Simple CAH game.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "files": [
+    "dist",
+    "es",
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "create-dispatcher": "^1.4.0",
+    "lodash": "^4.16.4",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.7",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "cross-env": "^3.1.3",
+    "eslint": "^3.9.0",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "rimraf": "^2.5.4",
+    "webpack": "^1.13.3"
+  },
+  "scripts": {
+    "clean": "$(npm bin)/rimraf lib",
+    "build:commonjs": "$(npm bin)/cross-env BABEL_ENV=commonjs $(npm bin)/babel src --out-dir lib",
+    "build:es": "$(npm bin)/cross-env BABEL_ENV=es $(npm bin)/babel src --out-dir es",
+    "build:umd": "$(npm bin)/cross-env BABEL_ENV=commonjs NODE_ENV=development $(npm bin)/webpack src/index.js dist/cah.js",
+    "build:umd:min": "$(npm bin)/cross-env BABEL_ENV=commonjs NODE_ENV=production $(npm bin)/webpack src/index.js dist/cah.min.js",
+    "build": "npm run clean && npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "cah",
+    "game"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treesnetwork/cah.git"
+  },
+  "author": "The Trees Network <contact@treesnetwork.com> (https://www.treesnetwork.com)",
+  "license": "MIT"
+}
