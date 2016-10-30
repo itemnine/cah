@@ -233,7 +233,9 @@ export default function createCah({
       payload: { deck: Array.from(deck.values()), playerId },
     });
 
-    resetGame();
+    if (state.status === WAITING_FOR_PLAYERS) {
+      resetGame();
+    }
 
     return Promise.resolve();
   }
@@ -259,7 +261,7 @@ export default function createCah({
       }
 
       if (state.status === COUNTDOWN_TO_GAME) {
-        const newState = { czarId: findNextCzar(state) };
+        const newState = { ...state, czarId: findNextCzar(state) };
         removeId();
         setState(ensureGameValid(newState));
         return Promise.resolve();
