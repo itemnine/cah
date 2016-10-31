@@ -254,16 +254,28 @@ export default function createCah({
 
     if (state.czarId === playerId) {
       if (CZAR_DEPENDENT_STATES.includes(state.status)) {
-        state.czarId = findNextCzar();
+        if (state.playerIds.length > 1) {
+          state.czarId = findNextCzar();
+        } else {
+          state.czarId = null;
+        }
+
         removeId();
         resetGame(CZAR_LEFT);
+
         return Promise.resolve();
       }
 
       if (state.status === COUNTDOWN_TO_GAME) {
-        const newState = { ...state, czarId: findNextCzar(state) };
+        if (state.playerIds.length > 1) {
+          state.czarId = findNextCzar();
+        } else {
+          state.czarId = null;
+        }
+
         removeId();
-        setState(ensureGameValid(newState));
+        setState(ensureGameValid(state));
+
         return Promise.resolve();
       }
     }
