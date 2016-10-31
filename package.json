@@ -26,10 +26,14 @@
     "eslint": "^3.9.0",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.0.1",
+    "expect": "^1.20.2",
+    "mocha": "^3.1.2",
     "rimraf": "^2.5.4",
     "webpack": "^1.13.3"
   },
   "scripts": {
+    "test": "$(npm bin)/cross-env BABEL_ENV=commonjs mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch",
     "clean": "$(npm bin)/rimraf lib",
     "build:commonjs": "$(npm bin)/cross-env BABEL_ENV=commonjs $(npm bin)/babel src --out-dir lib",
     "build:es": "$(npm bin)/cross-env BABEL_ENV=es $(npm bin)/babel src --out-dir es",
