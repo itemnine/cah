@@ -275,7 +275,17 @@ export default function createCah({
     }
 
     removeId();
-    setState(ensureGameValid(state));
+
+    ensureGameValid(state);
+
+    if (state.status === GAME_PLAYING) {
+      if ((state.playerIds.length - 1) === state.submittedPlayers.size) { // don't count czar
+        setCzarPicking();
+        return Promise.resolve();
+      }
+    }
+
+    setState(state);
 
     return Promise.resolve();
   }
