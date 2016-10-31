@@ -1,6 +1,6 @@
 {
   "name": "@ttn/cah",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "Simple CAH game.",
   "main": "lib/index.js",
   "module": "es/index.js",

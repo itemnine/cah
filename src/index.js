@@ -96,7 +96,7 @@ export default function createCah({
   }
 
   function findNextCzar() {
-    if (!state.playerIds.length) {
+    if (state.playerIds.length <= 1) {
       return null;
     }
 
@@ -126,6 +126,7 @@ export default function createCah({
   function cancelCountdown() {
     if (countdown) {
       clearTimeout(countdown);
+      state.countdownUntil = null;
       countdown = null;
     }
   }
@@ -191,7 +192,11 @@ export default function createCah({
   function ensureGameValid(newState) {
     if (newState.playerIds.length < minPlayers && state.status !== WAITING_FOR_PLAYERS) {
       cancelCountdown();
+      newState.blackCard = null;
+      newState.czarId = null;
       newState.status = WAITING_FOR_PLAYERS;
+      newState.submittedCards = null;
+      newState.submittedPlayers = null;
     }
 
     return newState;
@@ -249,17 +254,13 @@ export default function createCah({
       const index = state.playerIds.indexOf(playerId);
       state.playerIds.splice(index, 1);
       state.playerScores.delete(playerId);
+      state.playerDecks.delete(playerId);
       dispatch({ type: PLAYER_REMOVED, payload: playerId });
     }
 
     if (state.czarId === playerId) {
       if (CZAR_DEPENDENT_STATES.includes(state.status)) {
-        if (state.playerIds.length > 1) {
-          state.czarId = findNextCzar();
-        } else {
-          state.czarId = null;
-        }
-
+        state.czarId = findNextCzar();
         removeId();
         resetGame(CZAR_LEFT);
 
@@ -267,22 +268,11 @@ export default function createCah({
       }
 
       if (state.status === COUNTDOWN_TO_GAME) {
-        if (state.playerIds.length > 1) {
-          state.czarId = findNextCzar();
-        } else {
-          state.czarId = null;
-        }
-
+        state.czarId = findNextCzar();
         removeId();
         setState(ensureGameValid(state));
 
         return Promise.resolve();
-      }
-    }
-
-    if (state.status !== CZAR_PICKED) {
-      if (state.playerDecks.has(playerId)) {
-        state.playerDecks.delete(playerId);
       }
     }
 
