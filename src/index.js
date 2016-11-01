@@ -88,8 +88,8 @@ export default function createCah({
     return map;
   }, new Map());
 
-  function dropWhiteCard(card) {
-    state.whiteDeck.push(card);
+  function dropWhiteCard({ text }) {
+    state.whiteDeck.push(text);
   }
 
   /**
