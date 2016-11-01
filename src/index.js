@@ -182,7 +182,7 @@ export default function createCah({
     state.reason = null;
     state.status = GAME_PLAYING;
     state.submittedCards = new Map();
-    state.submittedPlayers = new Set();
+    state.submittedPlayers = new Map();
     state.winner = null;
 
     startCountdown(setCzarPicking, countdowns.gameDuration);
@@ -283,8 +283,15 @@ export default function createCah({
     }
 
     removeId();
-
     ensureGameValid(state);
+
+    if (state.status !== CZAR_PICKED) {
+      if (state.submittedPlayers && state.submittedPlayers.has(playerId)) {
+        const submissionId = state.submittedPlayers.get(playerId);
+        state.submittedPlayers.delete(playerId);
+        state.submittedCards.delete(submissionId);
+      }
+    }
 
     if (state.status === GAME_PLAYING) {
       if ((state.playerIds.length - 1) === state.submittedPlayers.size) { // don't count czar
@@ -389,7 +396,7 @@ export default function createCah({
 
     const submissionId = createId();
 
-    state.submittedPlayers.add(playerId);
+    state.submittedPlayers.set(playerId, submissionId);
     state.submittedCards.set(submissionId, {
       id: submissionId,
       cards: cardIds.map(cardId => playerDeck.get(cardId)),
