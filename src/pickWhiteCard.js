@@ -7,7 +7,7 @@ export default function pickWhiteCard(currentDeck, fullDeck) {
 
   if (currentDeck.length === 0) {
     return {
-      currentDeck: shuffle(fullDeck),
+      deck: shuffle(fullDeck),
       card,
     };
   }
