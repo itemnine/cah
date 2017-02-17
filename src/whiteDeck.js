@@ -554,4 +554,13 @@ export default [
   'AYY LMAO',
   'Dank memes.',
   'Jet fuel can\'t melt steel beams.',
+  'Car Ramrod.',
+  'A handjob from Edward Scissorhands.',
+  'The Pillsbury Doughboy blowing his load all over a toaster strudel.',
+  'Oompa Loompas shitting into the chocolate river.',
+  'Steve Irwin dying the way he lived his life - with animals in his heart.',
+  'A proctologist with poor depth perception.',
+  'A Groupon for a hooker.',
+  'A sex doll that just wants to be friends.',
+  'All the Neopets you left forever starving but never dying.',
 ];
