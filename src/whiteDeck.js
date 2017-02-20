@@ -1,4 +1,5 @@
 export default [
+  'Donald Trump.',
   'A Gypsy curse.',
   'A moment of silence.',
   'A sausage festival.',
