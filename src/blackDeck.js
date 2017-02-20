@@ -91,7 +91,7 @@ export default [
   ['What has been making life difficult at the nudist colony?'],
   ['And I would have gotten away with it, too, if it hadn\'t been for ', '.'],
   ['What brought the orgy to a grinding halt?'],
-  ['I got so high I'],
+  ['I got so high I seriously considered', '.'],
   ['This edible tastes like'],
   ['It takes', 'to make a stew.'],
   ['Last night we watched a movie about'],
